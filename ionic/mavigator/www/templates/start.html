@@ -1,0 +1,17 @@
+<ion-view title="MAvigator">
+  <ion-content>
+    <div class="list">
+      <div class="item item-text-wrap">
+        <h2>Suche deine Route</h2>
+      </div>
+    </div>
+    <div class="list list-inset">
+      <label class="item item-input">
+        <i class="icon ion-search placeholder-icon"></i>
+        <input type="text" placeholder="Zielort" ng-model="search.text">
+      </label>
+      <input type="button" name="name" value="Route berechnen" class="button button-block button-positive" ui-sref="result({ destination: search.text })">
+    </div>
+    <div id="map" data-tap-disabled="true"></div>
+  </ion-content>
+</ion-view>

@@ -29,6 +29,7 @@ module.exports = {
                         lat: Number.parseFloat(e.attr('lat').value()),
                         lng: Number.parseFloat(e.attr('lng').value()),
                         bikes: e.attr('bikes').value(),
+                        name: e.attr('name').value(),
                     }
                     data['distance_start'] = distance(start, data);
                     data['distance_end'] = distance(end, data);

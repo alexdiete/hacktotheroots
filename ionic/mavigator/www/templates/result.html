@@ -1,0 +1,51 @@
+<ion-view title="Ergebnisse">
+  <ion-pane>
+    <ion-tabs class="tabs-icon-top">
+      <ion-tab title="Fußweg" icon="ion-android-walk">
+        <ion-view>
+          <ion-content>
+            <ion-list>
+              <div ng-repeat="step in walkSteps" class="item item-text-wrap">
+                {{step.html_instructions}}
+                <span class="item-note">
+                  <span ng-bind-html="step.distance.text"></span>
+                </span>
+              </div>
+            </ion-list>
+          </ion-content>
+        </ion-view>
+      </ion-tab>
+
+      <ion-tab title="RNV" icon="ion-android-subway">
+        <ion-view>
+          <ion-content>
+            <ion-list>
+              <div ng-repeat="step in tramSteps" class="item item-text-wrap">
+                {{step.html_instructions}}
+                <span class="item-note">
+                  <span ng-bind-html="step.distance.text"></span>
+                </span>
+              </div>
+            </ion-list>
+          </ion-content>
+        </ion-view>
+      </ion-tab>
+
+      <ion-tab title="VRNnextbike" icon="ion-android-bicycle">
+        <ion-view>
+          <ion-content>
+            <ion-list>
+              <div ng-repeat="step in bikeSteps" class="item item-text-wrap">
+                {{step.html_instructions}}
+                <span class="item-note">
+                  <span ng-bind-html="step.distance.text"></span>
+                </span>
+              </div>
+            </ion-list>
+          </ion-content>
+        </ion-view>
+      </ion-tab>
+
+    </ion-tabs>
+  </ion-pane>
+</ion-view>
