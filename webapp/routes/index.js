@@ -38,8 +38,8 @@ router.get('/options', function(req, res, next) {
           var headsign = tramSteps[i].transit_details.headsign
           var time = tramSteps[i].transit_details.departure_time.value
           rnv.get_delay(stationName, headsign, time, (err, data) => {
-            if (err) throw err
-            var delayTime = data.differenceTime
+            
+            var delayTime = err ? data.differenceTime : 0
 
             nextbike.get_stations({
               lat: origin_lat,

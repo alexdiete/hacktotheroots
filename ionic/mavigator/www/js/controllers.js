@@ -59,8 +59,8 @@ angular.module('starter.controllers', [])
 
     var routeService = $injector.get('Route');
     routeService.loadData($stateParams.destination, function(result) {
-      $scope.tram_steps = result.tram_steps.map(removeStuff)
-      $scope.walk_steps = result.walk_steps.map(removeStuff)
-      $scope.bike_steps = result.bike_steps.map(removeStuff)
+      $scope.tram_steps = result.data.tram_steps.map(removeStuff)
+      $scope.walk_steps = result.data.walk_steps.map(removeStuff)
+      $scope.bike_steps = result.data.bike_steps.map(removeStuff)
     })
   });
