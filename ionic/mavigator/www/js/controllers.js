@@ -45,7 +45,7 @@ angular.module('starter.controllers', [])
 
     initialize();
   })
-  .controller('ResultCtrl', function($scope, $injector, $state, $stateParams) {
+  .controller('ResultCtrl', function($scope, $injector, $state, $stateParams, $timeout) {
     $scope.$on('$ionicView.beforeEnter', function(event, viewData) {
       viewData.enableBack = true;
     });
@@ -60,8 +60,13 @@ angular.module('starter.controllers', [])
 
     var routeService = $injector.get('Route');
     routeService.loadData($stateParams.destination, window.pos, function(result) {
-      $scope.tram_steps = result.data.tram_steps.map(removeStuff)
-      $scope.walk_steps = result.data.walk_steps.map(removeStuff)
-      $scope.bike_steps = result.data.bike_steps.map(removeStuff)
+      $timeout(function() {
+        $scope.$apply(function() {
+          $scope.tram_steps = result.data.tram_steps.map(removeStuff)
+          $scope.walk_steps = result.data.walk_steps.map(removeStuff)
+          $scope.bike_steps = result.data.bike_steps.map(removeStuff)
+          console.log($scope.tram_steps)
+        });
+      });
     })
   });

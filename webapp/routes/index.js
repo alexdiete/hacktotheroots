@@ -69,7 +69,19 @@ router.get('/options', function(req, res, next) {
                   tram_delay: parseInt(delayTime, 10),
                   data: data2,
                   bike_duration: walk1Duration.value + bikeDuration.value + walk2Duration.value,
-                  bike_steps: [...walk1Steps, ...bikeSteps, walk2Steps],
+                  bike_steps: [...walk1Steps, {
+                    html_instructions: "Nextbike Station " + data2.start.name,
+                    distance: {
+                      "text": "",
+                      "value": -1
+                    }
+                  }, ...bikeSteps, {
+                    html_instructions: "Nextbike Station " + data2.end.name,
+                    distance: {
+                      "text": "",
+                      "value": -1
+                  }
+                }, walk2Steps],
                 }
                 res.send(response)
               })
