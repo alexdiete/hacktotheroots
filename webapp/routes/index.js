@@ -17,8 +17,11 @@ router.get('/options', function(req, res, next) {
   var destination = req.query.destination
 
   var client = google_directions(process.env.GOOGLE_API_KEY)
+  
+  var ZAHL = 0;
 
   client.walkDirections(origin_lat + "," + origin_lon, destination, (err, result) => {
+    console.log(++ZAHL);
     if (err) throw err
 
     var destPos = result.routes[0].legs[0].end_location
@@ -27,17 +30,22 @@ router.get('/options', function(req, res, next) {
     var walkSteps = result.routes[0].legs[0].steps
 
     client.tramDirections(origin_lat + "," + origin_lon, destination, (err, resultTram) => {
+      console.log(++ZAHL);
       if (err) throw err
 
       var tramSteps = resultTram.routes[0].legs[0].steps
       var tramDuration = resultTram.routes[0].legs[0].duration
  
       for (var i = 0; i < tramSteps.length; i++) {
+        var stationName = ""
+        var headsign = ""
+        var time = (new Date()).getTime() / 1000
         if (tramSteps[i].travel_mode == 'TRANSIT') {
-          var stationName = tramSteps[i].transit_details.departure_stop.name
-          var headsign = tramSteps[i].transit_details.headsign
-          var time = tramSteps[i].transit_details.departure_time.value
-          rnv.get_delay(stationName, headsign, time, (err, data) => {
+          stationName = tramSteps[i].transit_details.departure_stop.name
+          headsign = tramSteps[i].transit_details.headsign
+          time = tramSteps[i].transit_details.departure_time.value
+        }
+        rnv.get_delay(stationName, headsign, time, (err, data) => {
             
             var delayTime = err ? 0 : data.differenceTime
 
@@ -45,13 +53,16 @@ router.get('/options', function(req, res, next) {
               lat: origin_lat,
               lng: origin_lon
             }, destPos, (err, data2) => {
+              console.log(++ZAHL);
               client.walkDirections(origin_lat + "," + origin_lon, data2.start.lat + "," + data2.start.lng, (err, result) => {
                 var walk1Steps = result.routes[0].legs[0].steps
                 var walk1Duration = result.routes[0].legs[0].duration
                 client.bikeDirections(data2.start.lat + "," + data2.start.lng, data2.end.lat + "," + data2.end.lng, (err, result) => {
+                  console.log(++ZAHL);
                   var bikeSteps = result.routes[0].legs[0].steps
                   var bikeDuration = result.routes[0].legs[0].duration
                   client.walkDirections(data2.end.lat + "," + data2.end.lng, destPos.lat + "," + destPos.lng, (err, result) => {
+                    console.log(++ZAHL);
                     var walk2Steps = result.routes[0].legs[0].steps
                     var walk2Duration = result.routes[0].legs[0].duration
 
@@ -74,7 +85,6 @@ router.get('/options', function(req, res, next) {
 
 
           })
-        }
       }
 
     })
