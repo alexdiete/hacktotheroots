@@ -12,7 +12,9 @@
     "express": "~4.13.1",
     "googlemaps": "^1.4.0",
     "jade": "~1.11.0",
+    "libxmljs": "^0.17.1",
     "morgan": "~1.6.1",
+    "request": "^2.71.0",
     "serve-favicon": "~2.3.0"
   }
 }
