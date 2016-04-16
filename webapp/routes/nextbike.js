@@ -1,15 +1,15 @@
 var request = require('request');
 var xml = require('libxmljs');
 
-function distance(s,e) {
+function distance(s, e) {
     var a = s.lat - e.lat;
     var b = s.lng - e.lng;
-    return Math.sqrt(Math.pow(a,2) + Math.pow(b,2));
+    return Math.sqrt(Math.pow(a, 2) + Math.pow(b, 2));
 }
 
 module.exports = {
     // {lat:xxx, lng: xxx}
-    get_stations:  function(start, end,cb) {
+    get_stations: function(start, end, cb) {
         var stations = [];
         request('https://nextbike.net/maps/nextbike-live.xml', function(err, res, body) {
             if (err) {
@@ -31,12 +31,14 @@ module.exports = {
                         bikes: e.attr('bikes').value(),
                     }
                     data['distance_start'] = distance(start, data);
-                    data['distance_end'] = distance(end, data); 
+                    data['distance_end'] = distance(end, data);
                     if (data['distance_start'] < min_start) {
                         result.start = data;
+                        min_start = data['distance_start']
                     }
                     if (data['distance_end'] < min_end) {
                         result.end = data;
+                        min_end = data['distance_end']
                     }
                 }
             });
@@ -44,5 +46,3 @@ module.exports = {
         });
     }
 }
-
-

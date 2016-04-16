@@ -26,8 +26,6 @@ module.exports = (apiKey) => {
             options["departure_time"] = new Date();
         }
 
-        console.log(options)
-
         gmAPI.directions(options, callback)
     }
 
