@@ -24,6 +24,7 @@ angular.module('starter.controllers', [])
 
       navigator.geolocation.getCurrentPosition(function(pos) {
         $state.position = pos;
+        window.pos = pos;
         var currentLocation = new google.maps.LatLng(pos.coords.latitude, pos.coords.longitude);
 
         $scope.map.setCenter(currentLocation);
@@ -58,7 +59,7 @@ angular.module('starter.controllers', [])
     $scope.bike_steps = []
 
     var routeService = $injector.get('Route');
-    routeService.loadData($stateParams.destination, function(result) {
+    routeService.loadData($stateParams.destination, window.pos, function(result) {
       $scope.tram_steps = result.data.tram_steps.map(removeStuff)
       $scope.walk_steps = result.data.walk_steps.map(removeStuff)
       $scope.bike_steps = result.data.bike_steps.map(removeStuff)
