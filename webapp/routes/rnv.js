@@ -5,6 +5,9 @@ module.exports = function(api_token) {
 	return {
 		// time := 'YYYY-MM-DD HH:MM'
 		get_delay: function(station, tram, time, cb) {
+			if (!station) {
+				return cb(new Error("Yolomode"), null)
+			}
 			var d = new Date()
 			d.setTime(time * 1000)
 

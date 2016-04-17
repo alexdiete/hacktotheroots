@@ -24,6 +24,7 @@ angular.module('starter.controllers', [])
 
       navigator.geolocation.getCurrentPosition(function(pos) {
         $state.position = pos;
+        window.pos = pos;
         var currentLocation = new google.maps.LatLng(pos.coords.latitude, pos.coords.longitude);
 
         $scope.map.setCenter(currentLocation);
@@ -44,7 +45,7 @@ angular.module('starter.controllers', [])
 
     initialize();
   })
-  .controller('ResultCtrl', function($scope, $injector, $state, $stateParams) {
+  .controller('ResultCtrl', function($scope, $injector, $state, $stateParams, $timeout) {
     $scope.$on('$ionicView.beforeEnter', function(event, viewData) {
       viewData.enableBack = true;
     });
@@ -58,9 +59,19 @@ angular.module('starter.controllers', [])
     $scope.bike_steps = []
 
     var routeService = $injector.get('Route');
-    routeService.loadData($stateParams.destination, function(result) {
-      $scope.tram_steps = result.data.tram_steps.map(removeStuff)
-      $scope.walk_steps = result.data.walk_steps.map(removeStuff)
-      $scope.bike_steps = result.data.bike_steps.map(removeStuff)
+    routeService.loadData($stateParams.destination, window.pos, function(result) {
+      $timeout(function() {
+        $scope.$apply(function() {
+          $scope.tram_steps = result.data.tram_steps.map(removeStuff)
+          $scope.walk_steps = result.data.walk_steps.map(removeStuff)
+          $scope.bike_steps = result.data.bike_steps.map(removeStuff)
+          $scope.times = {
+            bike: Math.floor(result.data.bike_duration / 60),
+            walk: Math.floor(result.data.walk_duration / 60),
+            tram: Math.floor(result.data.tram_duration / 60),
+          }
+          console.log($scope.tram_steps)
+        });
+      });
     })
   });

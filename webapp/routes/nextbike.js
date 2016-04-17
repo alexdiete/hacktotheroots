@@ -11,7 +11,9 @@ module.exports = {
     // {lat:xxx, lng: xxx}
     get_stations: function(start, end, cb) {
         var stations = [];
-        request('https://nextbike.net/maps/nextbike-live.xml', function(err, res, body) {
+        console.log("start nb")
+        request('http://nextbike.net/maps/nextbike-live.xml', function(err, res, body) {
+            console.log("end nb")
             if (err) {
                 return cb(err);
             }

@@ -5,11 +5,19 @@
         <ion-view>
           <ion-content>
             <ion-list>
-              <div ng-repeat="step in walkSteps" class="item item-text-wrap">
-                {{step.html_instructions}}
-                <span class="item-note">
+              <div class="item item-divider">
+                Gesamtzeit: {{ times.walk }} Minuten
+              </div>
+              <div ng-repeat="step in walk_steps">
+                <div class="item item-text-wrap" ng-if="step.distance.value >= 0">
+                  {{step.html_instructions}}
+                  <span class="item-note">
                   <span ng-bind-html="step.distance.text"></span>
-                </span>
+                  </span>
+                </div>
+                <div class="item item-divider" ng-if="step.distance.value < 0">
+                  {{step.html_instructions}}
+                </div>
               </div>
             </ion-list>
           </ion-content>
@@ -20,7 +28,10 @@
         <ion-view>
           <ion-content>
             <ion-list>
-              <div ng-repeat="step in tramSteps" class="item item-text-wrap">
+              <div class="item item-divider">
+                Gesamtzeit: {{ times.tram }} Minuten
+              </div>
+              <div ng-repeat="step in tram_steps" class="item item-text-wrap">
                 {{step.html_instructions}}
                 <span class="item-note">
                   <span ng-bind-html="step.distance.text"></span>
@@ -35,11 +46,19 @@
         <ion-view>
           <ion-content>
             <ion-list>
-              <div ng-repeat="step in bikeSteps" class="item item-text-wrap">
-                {{step.html_instructions}}
-                <span class="item-note">
+              <div class="item item-divider">
+                Gesamtzeit: {{ times.bike }} Minuten
+              </div>
+              <div ng-repeat="step in bike_steps">
+                <div class="item item-text-wrap" ng-if="step.distance.value >= 0">
+                  {{step.html_instructions}}
+                  <span class="item-note">
                   <span ng-bind-html="step.distance.text"></span>
-                </span>
+                  </span>
+                </div>
+                <div class="item item-divider" ng-if="step.distance.value < 0">
+                  {{step.html_instructions}}
+                </div>
               </div>
             </ion-list>
           </ion-content>
