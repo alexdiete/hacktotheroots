@@ -81,7 +81,7 @@ router.get('/options', function(req, res, next) {
                       "text": "",
                       "value": -1
                   }
-                }, walk2Steps],
+                }, ...walk2Steps],
                 }
                 res.send(response)
               })
