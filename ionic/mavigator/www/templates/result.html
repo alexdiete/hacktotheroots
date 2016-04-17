@@ -5,6 +5,9 @@
         <ion-view>
           <ion-content>
             <ion-list>
+              <div class="item item-divider">
+                Gesamtzeit: {{ times.walk }} Minuten
+              </div>
               <div ng-repeat="step in walk_steps">
                 <div class="item item-text-wrap" ng-if="step.distance.value >= 0">
                   {{step.html_instructions}}
@@ -25,6 +28,9 @@
         <ion-view>
           <ion-content>
             <ion-list>
+              <div class="item item-divider">
+                Gesamtzeit: {{ times.tram }} Minuten
+              </div>
               <div ng-repeat="step in tram_steps" class="item item-text-wrap">
                 {{step.html_instructions}}
                 <span class="item-note">
@@ -40,6 +46,9 @@
         <ion-view>
           <ion-content>
             <ion-list>
+              <div class="item item-divider">
+                Gesamtzeit: {{ times.bike }} Minuten
+              </div>
               <div ng-repeat="step in bike_steps">
                 <div class="item item-text-wrap" ng-if="step.distance.value >= 0">
                   {{step.html_instructions}}

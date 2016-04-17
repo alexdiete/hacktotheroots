@@ -65,6 +65,11 @@ angular.module('starter.controllers', [])
           $scope.tram_steps = result.data.tram_steps.map(removeStuff)
           $scope.walk_steps = result.data.walk_steps.map(removeStuff)
           $scope.bike_steps = result.data.bike_steps.map(removeStuff)
+          $scope.times = {
+            bike: Math.floor(result.data.bike_duration / 60),
+            walk: Math.floor(result.data.walk_duration / 60),
+            tram: Math.floor(result.data.tram_duration / 60),
+          }
           console.log($scope.tram_steps)
         });
       });
